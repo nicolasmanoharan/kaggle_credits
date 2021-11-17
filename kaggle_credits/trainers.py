@@ -22,10 +22,20 @@ class Trainer():
             "NumberOfOpenCreditLinesAndLoans", "NumberOfTimes90DaysLate",
             "NumberRealEstateLoansOrLines", "NumberOfTime60-89DaysPastDueNotWorse"
         ]), ("missing", pipe_2, ["MonthlyIncome", "NumberOfDependents"])])
+        preprocessing = make_pipeline(preprocessing,LogisticRegression())
         return preprocessing
 
     def run(self):
-        self.pipe  = self.set_pipeline().fit
+        self.pipe = self.set_pipeline().fit(self.X,self.y)
+        return self.pipe
+    def evaluate(self,X_test, y_test):
+        temp = self.run()
+        score = temp.score(X_test, y_test)
+        return score
+
+
+
+
 
 if __name__ == "__main__" :
     df = get_data()
@@ -33,3 +43,5 @@ if __name__ == "__main__" :
     X = df.drop(columns='SeriousDlqin2yrs')
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     model = Trainer(X,y)
+    model.run()
+    print(model.evaluate(X_test, y_test))

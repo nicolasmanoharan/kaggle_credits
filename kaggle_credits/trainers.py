@@ -41,7 +41,7 @@ if __name__ == "__main__" :
     df = get_data()
     y = df['SeriousDlqin2yrs']
     X = df.drop(columns='SeriousDlqin2yrs')
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
-    model = Trainer(X,y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.3)
+    model = Trainer(X_train, y_train)
     model.run()
     print(model.evaluate(X_test, y_test))

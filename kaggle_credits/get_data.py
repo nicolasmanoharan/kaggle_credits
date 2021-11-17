@@ -1,8 +1,9 @@
 import pandas as pd
 
 
-def get_data(nrows=10_000):
-    df = pd.read_csv("raw_data/test.csv")
+def get_data():
+    df = pd.read_csv("raw_data/train.csv")
+    return df
 
 
 
